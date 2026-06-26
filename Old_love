@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💔 နှလုံးသားခရီးစဉ်</title>
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pyidaungsu', 'Noto Sans Myanmar', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(145deg, #fce4ec, #f8bbd0, #f48fb1);
+            padding: 20px;
+            transition: background 0.6s ease;
+        }
+
+        /* ===== CARD ===== */
+        .card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 48px;
+            padding: 44px 36px 36px;
+            max-width: 620px;
+            width: 100%;
+            box-shadow: 0 30px 60px rgba(214, 51, 132, 0.25),
+                        0 12px 24px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        /* ===== HEADER ===== */
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #d63384, #e91e63);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            padding: 6px 22px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 16px rgba(214, 51, 132, 0.4);
+        }
+
+        .progress-wrap {
+            width: 100%;
+            height: 7px;
+            background: #f3e5f5;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 4px rgba(0,0,0,0.05);
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 10%;
+            background: linear-gradient(90deg, #d63384, #ff6f91, #f06292);
+            border-radius: 20px;
+            transition: width 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 0 12px rgba(214, 51, 132, 0.3);
+        }
+
+        .question-counter {
+            font-size: 15px;
+            color: #7b1fa2;
+            font-weight: 600;
+            margin-bottom: 6px;
+            letter-spacing: 0.8px;
+            background: rgba(255,255,255,0.5);
+            display: inline-block;
+            padding: 4px 18px;
+            border-radius: 30px;
+            backdrop-filter: blur(4px);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #4a154b;
+            margin: 14px 0 16px;
+            line-height: 1.5;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            word-break: break-word;
+            padding: 0 6px;
+        }
+
+        .sub-text {
+            color: #6d3b6d;
+            font-size: 16px;
+            margin-bottom: 28px;
+            opacity: 0.85;
+            font-style: italic;
+            min-height: 50px;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.3);
+            padding: 10px 16px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+            display: inline-block;
+            max-width: 100%;
+            word-break: break-word;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            margin-top: 10px;
+            position: relative;
+            min-height: 80px;
+        }
+
+        .btn {
+            padding: 15px 34px;
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            letter-spacing: 0.5px;
+            flex: 0 1 auto;
+            min-width: 140px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.10);
+            position: relative;
+            touch-action: manipulation;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #ff4d6d, #e91e63);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(233, 30, 99, 0.4);
+        }
+        .btn-yes:hover {
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 14px 32px rgba(233, 30, 99, 0.5);
+        }
+        .btn-yes:active {
+            transform: scale(0.94);
+        }
+
+        .btn-no {
+            background: #b0b0b0;
+            color: #fff;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+            transition: all 0.2s ease;
+        }
+        .btn-no:hover {
+            background: #9e9e9e;
+        }
+
+        .btn-no.evil {
+            background: #6d3b6d;
+            color: #fff;
+            position: fixed;
+            z-index: 9999;
+            box-shadow: 0 12px 36px rgba(122, 75, 122, 0.5);
+            transition: left 0.15s ease, top 0.15s ease, transform 0.2s ease;
+            min-width: 120px;
+            font-size: 17px;
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #9c27b0, #6a1b9a);
+            color: #fff;
+            padding: 16px 44px;
+            font-size: 18px;
+            box-shadow: 0 8px 28px rgba(156, 39, 176, 0.4);
+            min-width: 180px;
+        }
+        .btn-reset:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 36px rgba(156, 39, 176, 0.5);
+        }
+
+        /* ===== RESULT ===== */
+        .result-emoji {
+            font-size: 70px;
+            margin-bottom: 8px;
+            animation: pulse 1.8s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+            100% { transform: scale(1); }
+        }
+        .result-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #4a154b;
+            margin: 12px 0 16px;
+            line-height: 1.3;
+        }
+        .result-desc {
+            font-size: 18px;
+            color: #4d2b4d;
+            line-height: 1.8;
+            padding: 0 8px;
+            margin-bottom: 28px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 32px;
+            padding: 20px 16px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 520px) {
+            .card { padding: 28px 16px 24px; }
+            h1 { font-size: 21px; min-height: 70px; }
+            .btn { min-width: 110px; padding: 12px 18px; font-size: 15px; }
+            .btn-container { gap: 14px; }
+            .result-title { font-size: 26px; }
+            .result-desc { font-size: 16px; }
+        }
+        @media (max-width: 380px) {
+            .btn { min-width: 90px; padding: 10px 12px; font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card" id="app">
+    <!-- Badge + Progress -->
+    <div class="badge">💔 နှလုံးသားခရီး</div>
+    <div class="progress-wrap">
+        <div class="progress-bar" id="progressBar" style="width: 10%;"></div>
+    </div>
+    <div class="question-counter" id="counterDisplay">မေးခွန်း ၁ / ၁၀</div>
+
+    <!-- Question -->
+    <h1 id="questionText">အတိတ်က အမှတ်တရတွေကို မေ့နိုင်ပြီလား?</h1>
+    <div class="sub-text" id="subHint">💭 အဖြေက မင်းစိတ်ထဲမှာပဲ...</div>
+
+    <!-- Buttons -->
+    <div class="btn-container" id="btnContainer">
+        <button class="btn btn-yes" id="yesBtn" onclick="handleYes()">💖 Yes</button>
+        <button class="btn btn-no" id="noBtn" onmouseenter="evadeNo()" onclick="handleNo()">😶 NO</button>
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    //  DATA — မေးခွန်း ၁၀ ခု (အကုန်လုံး မှန်ကန်အောင် ပြင်ထား)
+    // ============================================================
+    var questions = [
+        { 
+            q: 'ငါ့ရဲ့ အသံကို ပြန်ကြားချင်သေးလား?', 
+            hint: '🎧 သတိရမိနေလား...',
+            yesReply: 'ကိုယ်သိတာပေါ့ 😊 မင်းသေချာပေါက် ကြားချင်နေတာ',
+            noReply: 'ဟင်... မကြားချင်ဘူးလား? မင်းသိပ်မှားနေတယ် 🤷❌ ၊ ၊ return 💖YES'
+        },
+        { 
+            q: 'အတူတူသွားခဲ့တဲ့ နေရာတွေကို ပြန်သွားချင်လား?', 
+            hint: '❤️‍🩹🫂',
+            yesReply: '💭 ဟုတ်တယ် ကိုယ်လဲ အတိတ်က အတူသွားခဲ့ဖူးတဲ့နေရာတွေကို မင်းနဲ့အတူ ပြန်လည်ချင်တယ်',
+            noReply: 'မင်းအဖြေတွေ မှားနေတယ်ထင်တယ် သေချာလေး စဉ်းစားပြီး ပြန်ဖြေလိုက်ပါ 😉'
+        },
+        { 
+            q: 'ကိုယ့်ရဲ့ဓာတ်ပုံတွေကို ခိုးကြည့်ပြီး အတိတ်ကအမှတ်တရတွေကို ပြန်လိုချင်နေလား?', 
+            hint: '👀',
+            yesReply: '😊 ကိုယ်လဲ ထပ်တူပါပဲ',
+            noReply: 'No ဖြေနေတာလား? ဒါဆိုရင် ဖျက်ပစ်လိုက်လေ။ ဘာလို့ ခိုးခိုးကြည့်နေလဲ။ မှန်အောင် ပြန်ဖြေ။ မဟုတ်ရင် မေးခွန်းအသစ်တွေအတွက် ရှေ့ဆက်မရပဲ ဖြစ်နေမယ်။ Yes or no 🤷'
+        },
+        { 
+            q: 'ပြန်ဆုံဖို့ အခွင့်အရေးရရင် ဆုံမလား?', 
+            hint: '🤝',
+            yesReply: 'မင်း မျက်နှာကို ငါက ကြည့်ကို မကြည့်ချင်တော့တာ 😜😜',
+            noReply: 'ကိုယ့်ကိုကိုယ် လိမ်ပြီး အဖြေမှားတွေ လျှောက်ဖြေနေတာပဲ 🤣 လိမ်နေရတာ မပင်ပန်းဘူးလား။ ဒီတစ်ခါလဲ သေချာလေး ပြန်ဖြေသင့်တယ် ထင်တယ်နော် 🤔'
+        },
+        { 
+            q: 'ငါ့အတွက် ငိုခဲ့ဖူးလား?', 
+            hint: '💧💧💧💧',
+            yesReply: 'သိတာပေါ့ မင်းငိုခဲ့တာတွေ ကိုယ်သိပါတယ် 🥲',
+            noReply: 'NO လို့ ဖြေလိုက်တာလား? ဒါဆိုရင် မျက်ရည်တွေ ဘယ်မှာလဲ? ညတိုင်း ခိုးခိုးငိုနေလို့ ကုန်သွားပြီ မဟုတ်ဘူးလား 🤣၊ YES ပဲ ပြန်ဖြေလိုက်ပါ 😋'
+        },
+        { 
+            q: 'ခုချိန်ထိ contact ထဲမှာ "ကိုကို" လို့ မှတ်ထားတုန်းပဲလား?', 
+            hint: '📱 ❤️KO KO😘',
+            yesReply: 'ဖုန်းဆက်လိုက်လေ 📞🤙😊',
+            noReply: 'NO ဆိုတဲ့ အဖြေမှားနေတယ်နော်။ ဒါဆိုရင် နှလုံးသားထဲက အလွတ်မှတ်ထားတာကိုပါ ဖျက်ပစ်လိုက်လေ။ ခုချိန်ထိ မင်းနှလုံးသားထဲမှာ ရှိနေမှတော့ yes ပဲ ဖြေသင့်တယ် 😋'
+        },
+        { 
+            q: 'ကိုယ်နဲ့ အတူရှိခဲ့တဲ့ အချိန်တွေကို ပြန်တမ်းတမိလား?', 
+            hint: '🕰️ အတိတ်က လွမ်းဆွတ်စရာတွေ',
+            yesReply: '🕰️ ထပ်တူပါပဲ 😊',
+            noReply: 'ဘာလို့ ညည ထထယောင်နေလဲ 🤣 ကိုယ့်ကိုယ်စောင့်နတ်ကို ပြန်လိမ်နေတာ ။ 💖YES 👈 return ...'
+        },
+        { 
+            q: 'ကိုယ့်ကို တစ်ခါလောက် ပြန်မြင်ချင်သေးလား?', 
+            hint: '👁️ အဖြေက မင်းမျက်လုံးထဲမှာ',
+            yesReply: '👀  ဟဟ ပဲရမယ် 😜🤣',
+            noReply: 'အဖြေမှားနေတယ်ထင်တယ် 🤔 ဘာလို့ မင်းမျက်ဝန်းထဲမှာ ကိုယ့်ရဲ့ ပုံရိပ်တွေ ထပ်နေတာလဲ 🧐'
+        },
+        { 
+            q: 'ကိုယ့်စီကနေ မင်းကို ချစ်တယ်ဆိုတဲ့ စကားကို ပြန်ကြားချင်သေးလား?', 
+            hint: '💬 နှလုံးသားက ဖြေပေးလိမ့်မယ်',
+            yesReply: 'ဆုတောင်းလေ ပြောမနေဘူး 🤣🤣',
+            noReply: 'NO လို့ဖြေတာ 🤣 လူလိမ်၊ ကြားချင်လို့ နား👂တွေ စွင့်နေတာမလား'
+        }
+    ];
+
+    // ============================================================
+    //  GAME STATE
+    // ============================================================
+    var currentIndex = 0;
+    var totalQuestions = questions.length;
+    var isGameOver = false;
+    var noEvadeCount = 0;
+
+    // DOM refs
+    var questionEl = document.getElementById('questionText');
+    var subHintEl = document.getElementById('subHint');
+    var counterEl = document.getElementById('counterDisplay');
+    var progressBar = document.getElementById('progressBar');
+    var noBtn = document.getElementById('noBtn');
+    var yesBtn = document.getElementById('yesBtn');
+
+    // ============================================================
+    //  UPDATE UI
+    // ============================================================
+    function updateQuestion(index) {
+        var q = questions[index];
+        questionEl.textContent = q.q;
+        subHintEl.textContent = q.hint;
+        subHintEl.style.color = '#6d3b6d';
+        subHintEl.style.fontWeight = '400';
+        counterEl.textContent = 'မေးခွန်း ' + (index + 1) + ' / ' + totalQuestions;
+        progressBar.style.width = ((index + 1) / totalQuestions * 100) + '%';
+
+        // Reset NO button
+        noBtn.classList.remove('evil');
+        noBtn.style.position = 'relative';
+        noBtn.style.left = '0';
+        noBtn.style.top = '0';
+        noBtn.style.transform = 'none';
+        noBtn.style.zIndex = 'auto';
+        noBtn.textContent = '😶 NO';
+        noEvadeCount = 0;
+
+        yesBtn.style.display = 'inline-block';
+        yesBtn.style.transform = 'scale(1)';
+        yesBtn.style.boxShadow = '0 8px 24px rgba(233,30,99,0.4)';
+    }
+
+    // ============================================================
+    //  YES
+    // ============================================================
+    function handleYes() {
+        if (isGameOver) return;
+
+        var q = questions[currentIndex];
+        subHintEl.textContent = q.yesReply;
+        subHintEl.style.color = '#c2185b';
+        subHintEl.style.fontWeight = '600';
+
+        setTimeout(function() {
+            if (currentIndex < totalQuestions - 1) {
+                currentIndex++;
+                updateQuestion(currentIndex);
+                yesBtn.style.display = 'inline-block';
+                noBtn.classList.remove('evil');
+                noBtn.style.position = 'relative';
+                noBtn.style.left = '0';
+                noBtn.style.top = '0';
+                noBtn.textContent = '😶 NO';
+            } else {
+                showResult();
+            }
+        }, 800);
+    }
+
+    // ============================================================
+    //  NO
+    // ============================================================
+    function handleNo() {
+        if (isGameOver) return;
+
+        var q = questions[currentIndex];
+        subHintEl.textContent = q.noReply;
+        subHintEl.style.color = '#c2185b';
+        subHintEl.style.fontWeight = '600';
+
+        evadeNo();
+
+        yesBtn.style.transform = 'scale(1.1)';
+        yesBtn.style.boxShadow = '0 0 40px rgba(233,30,99,0.7)';
+        setTimeout(function() {
+            yesBtn.style.transform = 'scale(1)';
+            yesBtn.style.boxShadow = '0 8px 24px rgba(233,30,99,0.4)';
+        }, 400);
+    }
+
+    // ============================================================
+    //  EVADE NO — ပျံသန်းခြင်း အနုပညာ
+    // ============================================================
+    function evadeNo() {
+        if (isGameOver) return;
+
+        noEvadeCount++;
+        var btn = noBtn;
+
+        var w = window.innerWidth - 180;
+        var h = window.innerHeight - 120;
+        var x = Math.random() * w;
+        var y = Math.random() * h;
+
+        btn.classList.add('evil');
+        btn.style.position = 'fixed';
+        btn.style.left = x + 'px';
+        btn.style.top = y + 'px';
+        btn.style.transform = 'rotate(' + (Math.random() * 12 - 6) + 'deg) scale(' + (0.85 + Math.random() * 0.25) + ')';
+        btn.style.zIndex = 9999;
+        btn.textContent = noEvadeCount > 6 ? '😈 REALLY?' : '😶 NO';
+
+        setTimeout(function() {
+            if (!isGameOver && btn.classList.contains('evil')) {
+                var x2 = Math.random() * (window.innerWidth - 180);
+                var y2 = Math.random() * (window.innerHeight - 120);
+                btn.style.left = x2 + 'px';
+                btn.style.top = y2 + 'px';
+                btn.style.transform = 'rotate(' + (Math.random() * 20 - 10) + 'deg) scale(' + (0.8 + Math.random() * 0.3) + ')';
+            }
+        }, 180);
+
+        yesBtn.style.boxShadow = '0 0 50px rgba(233,30,99,0.8)';
+        setTimeout(function() {
+            yesBtn.style.boxShadow = '0 8px 24px rgba(233,30,99,0.4)';
+        }, 500);
+    }
+
+    // ============================================================
+    //  RESULT
+    // ============================================================
+    function showResult() {
+        isGameOver = true;
+        var card = document.getElementById('app');
+        card.innerHTML = 
+            '<div style="text-align:center;">' +
+                '<div class="result-emoji">💖🔥</div>' +
+                '<div class="result-title">🕊️ ချစ်လို့ စတာပါ 😁</div>' +
+                '<div class="result-desc">' +
+                    'အတိတ်ကို မေ့ဖို့ မလွယ်ဘူး...<br>' +
+                    'ဒါပေမယ့် ဒီခရီးစဉ်လေးက မင်းအတွက် အမှတ်တရလေးတွေ ပြန်လည်ဆန်းသစ်စေမယ်。<br><br>' +
+                    '💖 အတိတ်က သင်ခန်းစာတွေနဲ့ အနာဂတ်ကို ဆက်လျှောက်လှမ်းလိုက်ပါ。<br>' +
+                    'ဒါနဲ့ စကားမစပ် မင်းငါ့ကို ချစ်နေတုန်းပဲဆိုတာ သိလိုက်ရလို့ ငါပျော်မိပါတယ် 🤣 မင်းဖြေတဲ့အမှတ်က 💯 အပြည့်ရပါတယ်🙂 ကိုယ်အားရင် ပြန်စဉ်းစားပေးမယ်' +
+                '</div>' +
+                '<button class="btn btn-reset" onclick="location.reload()">🔄 ပြန်စမယ်</button>' +
+            '</div>';
+    }
+
+    // ============================================================
+    //  INIT
+    // ============================================================
+    updateQuestion(0);
+
+    window.addEventListener('resize', function() {
+        if (noBtn.classList.contains('evil')) {
+            var w = window.innerWidth - 180;
+            var h = window.innerHeight - 120;
+            noBtn.style.left = Math.random() * w + 'px';
+            noBtn.style.top = Math.random() * h + 'px';
+        }
+    });
+
+    console.log('💔 နှလုံးသားခရီးစဉ် စတင်ပါပြီ');
+</script>
+</body>
+</html>
